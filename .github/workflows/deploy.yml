@@ -23,15 +23,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # 不使用 npx 的两种方式（任选其一）：
-      
-      # 方式一：直接调用本地 node_modules 中的 hexo 可执行文件
-      #- name: Generate static files (direct bin)
-      #  run: ./node_modules/.bin/hexo generate
-
-      # 方式二：通过 npm 脚本（需要在 package.json 中定义 "build": "hexo generate"）
-      - name: Generate static files (npm script)
-        run: npm run build
+      - name: Generate static files
+        run: npx hexo generate
 
       - name: Deploy to main branch
         uses: peaceiris/actions-gh-pages@v3
@@ -39,4 +32,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: main   # 推送到 main 分支
-          force_orphan: true      # 使 main 分支只包含最新的静态文件 
+          force_orphan: true      # 使 main 分支只包含最新的静态文件
